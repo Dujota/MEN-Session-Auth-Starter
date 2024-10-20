@@ -4,6 +4,9 @@ const morgan = require('morgan');
 require('dotenv').config();
 require('./config/database');
 
+// Controllers
+const authController = require('./controllers/auth');
+
 const app = express();
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -18,6 +21,11 @@ app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 
 // ROUTES
+app.get('/', async (req, res) => {
+  res.render('index.ejs');
+});
+
+app.use('/auth', authController);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
